@@ -15,44 +15,23 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Default stuff
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Get TextViews
-        TextView numbers = findViewById(R.id.numbers);
-        TextView family = findViewById(R.id.family);
-        TextView colors = findViewById(R.id.colors);
-        TextView phrases = findViewById(R.id.phrases);
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
-        //Set onClickListeners
-        numbers.setOnClickListener(view -> {
-            Intent numbersIntent = new Intent(MainActivity.this, NumbersActivity.class);
-            startActivity(numbersIntent);
-        });
-
-        family.setOnClickListener(view -> {
-            Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
-            startActivity(familyIntent);
-        });
-
-        colors.setOnClickListener(view -> {
-            Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
-            startActivity(colorsIntent);
-        });
-
-        phrases.setOnClickListener(view -> {
-            Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
-            startActivity(phrasesIntent);
-        });
+        TabLayout tabLayout = findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
